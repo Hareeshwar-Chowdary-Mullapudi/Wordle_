@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Wordle</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+
+        <link rel="stylesheet" href="style.css">
+        <script src="hari.js"></script>
+    </head>
+
+    <body>
+        <div class="app">
+            <h1 id="title">Wordle</h1>
+
+            <div id="start-screen" class="panel">
+                <p class="start-tagline">Guess the 5-letter word in 6 tries.</p>
+                <div class="start-actions">
+                    <button id="start-btn" class="action-btn" type="button">Start</button>
+                    <button id="start-rules-btn" class="secondary-btn" type="button">How to Play</button>
+                </div>
+            </div>
+
+            <div id="game-content" class="hidden">
+                <nav id="menu-bar">
+                    <button id="menu-toggle" class="menu-toggle" type="button">☰ Menu</button>
+                    <div id="menu-dropdown" class="menu-dropdown hidden">
+                        <button id="menu-pause" class="menu-item" type="button">Pause</button>
+                        <button id="menu-rules" class="menu-item" type="button">Rules</button>
+                        <button id="menu-restart" class="menu-item" type="button">Restart</button>
+                        <button id="menu-quit" class="menu-item menu-quit" type="button">Quit</button>
+                    </div>
+                </nav>
+
+                <div id="stats">
+                    <span class="stat">Time: <span id="timer">0:00</span></span>
+                    <span class="stat">Best: <span id="best-time">--</span></span>
+                </div>
+
+                <div id="answer-reveal" class="answer-reveal hidden">
+                    <span class="answer-label">The word was</span>
+                    <span id="answer-word" class="answer-word"></span>
+                </div>
+
+                <div id="board"></div>
+
+                <div id="keyboard"></div>
+
+                <p id="game-message" class="game-message"></p>
+                <button id="action-btn" class="action-btn hidden" type="button">Try Again</button>
+            </div>
+        </div>
+
+        <div id="pause-overlay" class="overlay hidden">
+            <div class="modal">
+                <h2>Game Paused</h2>
+                <p>Click Resume to continue playing.</p>
+                <button id="resume-btn" class="action-btn" type="button">Resume</button>
+            </div>
+        </div>
+
+        <div id="rules-overlay" class="overlay hidden">
+            <div class="modal rules-modal">
+                <h2>How to Play</h2>
+                <ul class="rules-list">
+                    <li>Guess the <strong>5-letter word</strong> in <strong>6 tries</strong>.</li>
+                    <li>Each guess must be a valid word. Press <strong>Enter</strong> to submit.</li>
+                    <li>After each guess, tile colors show how close you are:
+                        <span class="rule-chip correct">Green</span> correct letter, correct spot
+                        <span class="rule-chip present">Yellow</span> correct letter, wrong spot
+                        <span class="rule-chip absent">Gray</span> letter not in the word
+                    </li>
+                    <li>Your time is tracked at the top. Beat your <strong>best time</strong> on a win.</li>
+                    <li>Use <strong>Menu → Pause</strong> to stop the timer anytime.</li>
+                </ul>
+                <button id="rules-close-btn" class="action-btn" type="button">Close</button>
+            </div>
+        </div>
+    </body>
+</html>
