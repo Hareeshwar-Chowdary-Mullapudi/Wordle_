@@ -109,10 +109,24 @@ body {
 }
 
 .game-top {
-  display: flex;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
   align-items: center;
   margin-bottom: 16px;
   min-height: 44px;
+}
+
+.game-title {
+  grid-column: 2;
+  margin: 0;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  text-align: center;
+  background: linear-gradient(90deg, #6aaa64, #38bdf8, #a855f7, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #menu-bar {
@@ -562,8 +576,9 @@ body {
     border-radius: 18px;
   }
 
-  .game-top {
-    margin-bottom: 12px;
+  .game-title {
+    font-size: 26px;
+    letter-spacing: 4px;
   }
 
   .stats-bar {
