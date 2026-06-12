@@ -2,8 +2,10 @@
     <head>
         <title>Wordle</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <script src="hari.js"></script>
     </head>
@@ -21,40 +23,48 @@
             </div>
 
             <div id="game-content" class="hidden">
-                <nav id="menu-bar">
-                    <button id="menu-toggle" class="menu-toggle" type="button">☰ Menu</button>
-                    <div id="menu-dropdown" class="menu-dropdown hidden">
-                        <button id="menu-pause" class="menu-item" type="button">Pause</button>
-                        <button id="menu-rules" class="menu-item" type="button">Rules</button>
-                        <button id="menu-restart" class="menu-item" type="button">Restart</button>
-                        <button id="menu-quit" class="menu-item menu-quit" type="button">Quit</button>
+                <div class="game-card">
+                    <header class="game-top">
+                        <nav id="menu-bar">
+                            <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Menu">☰</button>
+                            <div id="menu-dropdown" class="menu-dropdown hidden">
+                                <button id="menu-rules" class="menu-item" type="button">Rules</button>
+                                <button id="menu-restart" class="menu-item" type="button">Restart</button>
+                                <button id="menu-quit" class="menu-item menu-quit" type="button">Quit</button>
+                            </div>
+                        </nav>
+                    </header>
+
+                    <div id="stats" class="stats-bar">
+                        <div class="stat-card stat-streak">
+                            <span class="stat-icon" aria-hidden="true">🔥</span>
+                            <div class="stat-body">
+                                <span id="streak" class="stat-value">0</span>
+                                <span class="stat-label">Current Streak</span>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-best">
+                            <span class="stat-icon" aria-hidden="true">🏆</span>
+                            <div class="stat-body">
+                                <span id="best-streak" class="stat-value">--</span>
+                                <span class="stat-label">Best Streak</span>
+                            </div>
+                        </div>
                     </div>
-                </nav>
 
-                <div id="stats">
-                    <span class="stat">Streak: <span id="streak">0</span></span>
-                    <span class="stat">Best: <span id="best-streak">--</span></span>
+                    <div id="answer-reveal" class="answer-reveal hidden">
+                        <span class="answer-label">The word was</span>
+                        <span id="answer-word" class="answer-word"></span>
+                    </div>
+
+                    <div id="board"></div>
+
+                    <p id="game-message" class="game-message"></p>
+
+                    <div id="keyboard"></div>
+
+                    <button id="action-btn" class="action-btn hidden" type="button">Try Again</button>
                 </div>
-
-                <div id="answer-reveal" class="answer-reveal hidden">
-                    <span class="answer-label">The word was</span>
-                    <span id="answer-word" class="answer-word"></span>
-                </div>
-
-                <div id="board"></div>
-
-                <div id="keyboard"></div>
-
-                <p id="game-message" class="game-message"></p>
-                <button id="action-btn" class="action-btn hidden" type="button">Try Again</button>
-            </div>
-        </div>
-
-        <div id="pause-overlay" class="overlay hidden">
-            <div class="modal">
-                <h2>Game Paused</h2>
-                <p>Click Resume to continue playing.</p>
-                <button id="resume-btn" class="action-btn" type="button">Resume</button>
             </div>
         </div>
 
@@ -71,7 +81,6 @@
                     </li>
                     <li>Your <strong>win streak</strong> is shown at the top — consecutive wins in a row.</li>
                     <li>Lose a game and your streak resets to zero. Beat your <strong>best streak</strong>!</li>
-                    <li>Use <strong>Menu → Pause</strong> to pause the game anytime.</li>
                 </ul>
                 <button id="rules-close-btn" class="action-btn" type="button">Close</button>
             </div>

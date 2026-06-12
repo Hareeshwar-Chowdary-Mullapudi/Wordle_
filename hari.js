@@ -6,7 +6,6 @@ let col = 0;
 
 let gameOver = false;
 let gameStarted = false;
-let gamePaused = false;
 let rulesOpen = false;
 let submitting = false;
 
@@ -94,10 +93,6 @@ function initialize() {
         toggleMenu();
     });
     document.getElementById("menu-bar").addEventListener("click", (e) => e.stopPropagation());
-    document.getElementById("menu-pause").addEventListener("click", () => {
-        closeMenu();
-        togglePause();
-    });
     document.getElementById("menu-rules").addEventListener("click", () => {
         closeMenu();
         showRules();
@@ -110,7 +105,6 @@ function initialize() {
         closeMenu();
         quitGame();
     });
-    document.getElementById("resume-btn").addEventListener("click", togglePause);
     document.getElementById("rules-close-btn").addEventListener("click", (e) => {
         e.stopPropagation();
         hideRules();
@@ -125,12 +119,6 @@ function toggleMenu() {
 
 function closeMenu() {
     document.getElementById("menu-dropdown").classList.add("hidden");
-}
-
-function updatePauseMenuItem(text, disabled) {
-    const item = document.getElementById("menu-pause");
-    item.innerText = text;
-    item.disabled = disabled;
 }
 
 function beginGame() {
@@ -150,21 +138,17 @@ function quitGame() {
     if (!gameStarted) return;
     gameStarted = false;
     gameOver = false;
-    gamePaused = false;
     rulesOpen = false;
     closeMenu();
-    document.getElementById("pause-overlay").classList.add("hidden");
     document.getElementById("rules-overlay").classList.add("hidden");
     document.getElementById("game-content").classList.add("hidden");
     document.getElementById("start-screen").classList.remove("hidden");
-    updatePauseMenuItem("Pause", false);
 }
 
 function startNewGame() {
     row = 0;
     col = 0;
     gameOver = false;
-    gamePaused = false;
     rulesOpen = false;
 
     for (let r = 0; r < height; r++) {
@@ -184,27 +168,10 @@ function startNewGame() {
     document.getElementById("answer-word").innerText = "";
     document.getElementById("action-btn").classList.add("hidden");
     submitting = false;
-    updatePauseMenuItem("Pause", false);
-    document.getElementById("pause-overlay").classList.add("hidden");
     document.getElementById("rules-overlay").classList.add("hidden");
     closeMenu();
 
     word = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
-}
-
-function togglePause() {
-    if (!gameStarted || gameOver) return;
-
-    gamePaused = !gamePaused;
-    const overlay = document.getElementById("pause-overlay");
-
-    if (gamePaused) {
-        updatePauseMenuItem("Resume", false);
-        overlay.classList.remove("hidden");
-    } else {
-        updatePauseMenuItem("Pause", false);
-        overlay.classList.add("hidden");
-    }
 }
 
 function showRules() {
@@ -353,9 +320,6 @@ function recordLoss() {
 
 function endGame(won) {
     gameOver = true;
-    gamePaused = false;
-    updatePauseMenuItem("Pause", true);
-    document.getElementById("pause-overlay").classList.add("hidden");
     closeMenu();
     const actionBtn = document.getElementById("action-btn");
     const answerReveal = document.getElementById("answer-reveal");
@@ -384,7 +348,7 @@ function endGame(won) {
 }
 
 function processInput(inputCode) {
-    if (!gameStarted || gameOver || gamePaused || rulesOpen || submitting) return;
+    if (!gameStarted || gameOver || rulesOpen || submitting) return;
 
     if (inputCode.startsWith("Key") && inputCode.length === 4) {
         if (col < width) {
@@ -408,7 +372,7 @@ function processInput(inputCode) {
 }
 
 async function update() {
-    if (gamePaused || rulesOpen || submitting) return;
+    if (rulesOpen || submitting) return;
     if (col < width) return;
 
     let guess = "";
